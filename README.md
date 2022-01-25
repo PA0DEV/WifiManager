@@ -13,6 +13,12 @@ Tested on   :   ESP32
 - save known Networks and passwords in "profiles.json" (JSON-Format)
 - Easy to include in your projects
 
+<b>Planned features:</b>
+  
+- Network IP setup
+  - DHCP 
+  - Static IP configuration
+
 <b>Usage :</b>
 
 1. copy the wifiManager.py in your project folder
@@ -41,4 +47,7 @@ Tested on   :   ESP32
 2. step: open a web server to configure a new wifi
 3. step: save the ssid / password from the configuration to "profiles.json"
 4. step: run user code
+
+
+
 
