@@ -1,0 +1,8 @@
+{
+    "profiles": [
+        {
+            "ssid": "TestSSID",
+            "pass": "TestPass"
+        }
+    ]
+}
