@@ -1,7 +1,7 @@
 # created:  25.1.2022
 # by PA0DEV
 #
-# version: 1.0.0
+# version: 1.0.1
 # designed and tested on ESP32 TTGO
 
 """ 
@@ -145,6 +145,7 @@ def connectWifi(ssid, password):
     if connected:
         print("\n[WifiMgr] Connected to wifi %s" %ssid)
         print("[WifiMgr] Device IP:  %s" %(wifiSta.ifconfig()[0]))
+        wifiAp.active(False)
     else:
         print("\n[WifiMgr] Could not connect to wifi %s" %ssid)
     return connected
