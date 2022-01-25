@@ -1,6 +1,6 @@
 # WifiManager
  
-## Version: 1.0.0
+## Version: 1.0.1
 
 <b>Written in  :</b>   MicroPython
 
@@ -49,7 +49,11 @@
 1. step: check if "profiles.json" contains any reachable networks
 2. step: open a web server to configure a new wifi
 3. step: save the ssid / password from the configuration to "profiles.json"
-4. step: run user code
+4. After successful connection the `wifiAP` gets closed. 
+   
+    The connection sould be checked in regular intervals to prevent unwanted behaviour!  
+
+5. step: run user code
 
 
 
