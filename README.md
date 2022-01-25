@@ -1,9 +1,10 @@
 # WifiManager
  
+## Version: 1.0.0
 
-Written in  :   MicroPython
+<b>Written in  :</b>   MicroPython
 
-Tested on   :   ESP32
+<b>Tested on   :</b>   ESP32
 
 <b>Description : </b> WiFi Manager to find, connect and save wifi credentials
 
@@ -15,9 +16,11 @@ Tested on   :   ESP32
 
 <b>Planned features:</b>
   
-- Network IP setup
-  - DHCP 
-  - Static IP configuration
+- [ ] Update website design
+- [ ] Network IP setup
+    - DHCP 
+    - Static IP configuration
+- [ ] More to come
 
 <b>Usage :</b>
 
