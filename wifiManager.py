@@ -1,7 +1,7 @@
 # created:  25.1.2022
 # by PA0DEV
 #
-# version: 1.0.1
+# version: 1.1.0
 # designed and tested on ESP32 TTGO
 
 """ 
@@ -177,14 +177,52 @@ def handle_root(client):
     send_header(client)
     client.sendall("""\
         <html>
-            <h1 style="color: #5e9ca0; text-align: center;">
-                <span style="color: #ff0000;">
-                    Wi-Fi Client Setup
-                </span>
-            </h1>
-            <form action="configure" method="post">
-                <table style="margin-left: auto; margin-right: auto;">
-                    <tbody>
+            <style>
+                body{
+                    background-color: #1f1f1f; 
+                    color: whitesmoke; 
+                }
+                h1{
+                    color: #5e9ca0; 
+                    text-align: center; 
+                font-size: 70px;
+                }
+                span{
+                    color: whitesmoke;
+                }
+                table, th, td{
+                    background-color: whitesmoke;
+                    border: 1px solid black;
+                    border-collapse: collapse;
+                    color: black;
+                    font-size: 40px;
+                    line-height: 60px;
+                }
+                table{
+                    margin-left: auto;
+                    margin-right: auto;
+                }
+                tr{
+                    height: 60px;
+                }
+                input[type="radio"]{
+                    width: 50px; 
+                    height: 30px;
+                    line-height: 60px;
+                    text-align: left;
+
+                }
+            </style>
+            <title>ESP-WiFi setup</title>
+            <body>
+                        <h1>
+                        <span >
+                            Wi-Fi Client Setup
+                        </span>
+                    </h1>
+                    <form action="configure" method="post">
+                        <table>
+                            <tbody>
     """)
     while len(ssids):
         ssid = ssids.pop(0)
@@ -196,16 +234,23 @@ def handle_root(client):
                         </tr>
         """.format(ssid))
     client.sendall("""\
-                        <tr>
-                            <td>Password:</td>
-                            <td><input name="password" type="password" /></td>
-                        </tr>
-                    </tbody>
-                </table>
-                <p style="text-align: center;">
-                    <input type="submit" value="Submit" />
-                </p>           
-        </html>
+                            <tr>
+                                <td colspan="2">
+                                    
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-size: 40px; border-right: none;">Password:</td>
+                                <td style="border-left: none; width: 300px;"><input name="password" type="password" style="height: 60px; font-size: 50px;"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p style="text-align: center;">
+                        <input type="submit" value="Submit" style="height: 60px; width: 200px; font-size: 50px; background-color: whitesmoke; " />
+                    </p>
+        
+        </body>
+    </html>
     """)
     client.close()
 

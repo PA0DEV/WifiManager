@@ -1,6 +1,6 @@
 # WifiManager
  
-## Version: 1.0.1
+## Version: 1.1.0
 
 <b>Written in  :</b>   MicroPython
 
@@ -16,7 +16,7 @@
 
 <b>Planned features:</b>
   
-- [ ] Update website design
+- [X] Update website design (in Progess)
 - [ ] Network IP setup
     - DHCP 
     - Static IP configuration

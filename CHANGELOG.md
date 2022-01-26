@@ -1,5 +1,8 @@
 # WifiManager changelog
 
+## V1.1.0 (DATE)
+- updated web page style and content
+
 ## V1.0.1 (Jan. 25, 2022)
 - After successful connection the `wifiAP` gets closed. 
 
