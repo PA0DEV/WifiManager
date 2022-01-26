@@ -1,0 +1,66 @@
+<html>
+    <style>
+        body{
+            background-color: #1f1f1f; 
+            color: whitesmoke; 
+        }
+        h1{
+            color: #5e9ca0; 
+            text-align: center; 
+           font-size: 70px;
+        }
+        span{
+            color: whitesmoke;
+        }
+        table, th, td{
+            background-color: whitesmoke;
+            border: 1px solid black;
+            border-collapse: collapse;
+            color: black;
+            font-size: 40px;
+            line-height: 60px;
+        }
+        table{
+            margin-left: auto;
+            margin-right: auto;
+        }
+        tr{
+            height: 60px;
+        }
+        input[type="radio"]{
+            width: 50px; 
+            height: 30px;
+            line-height: 60px;
+            text-align: left;
+
+        }
+    </style>
+    <title>ESP-WiFi setup</title>
+    <body>
+                <h1>
+                <span >
+                    Wi-Fi Client Setup
+                </span>
+            </h1>
+            <form action="configure" method="post">
+                <table>
+                    <tbody>
+<!-- iterate for all items -->
+                        <tr>
+                            <td colspan="2">
+                                <input type="radio" name="ssid" value="{0}" />{0}
+                            </td>
+                        </tr>
+<!-- END -->
+                        <tr>
+                            <td style="font-size: 40px; border-right: none;">Password:</td>
+                            <td style="border-left: none; width: 300px;"><input name="password" type="password" style="height: 60px; font-size: 50px;"/></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p style="text-align: center;">
+                    <input type="submit" value="Submit" style="height: 60px; width: 200px; font-size: 50px; background-color: whitesmoke; " />
+                </p>
+    
+    </body>
+</html>
