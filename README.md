@@ -16,7 +16,7 @@
 
 <b>Planned features:</b>
   
-- [X] Update website design (in Progess)
+- [X] Update website design
 - [ ] Network IP setup
     - DHCP 
     - Static IP configuration

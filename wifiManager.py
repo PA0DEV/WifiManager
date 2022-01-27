@@ -277,16 +277,27 @@ def handle_configure(client, request):
 
     if connectWifi(ssid, password):
         response = """\
-            <html>
-                <center>
-                    <br><br>
-                    <h1 style="color: #5e9ca0; text-align: center;">
-                        <span style="color: #ff0000;">
-                            ESP successfully connected to WiFi network %(ssid)s.
-                        </span>
-                    </h1>
-                    <br><br>
-                </center>
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <style>
+                    body{
+                        background-color: #1f1f1f;
+                    }
+                    h1{
+                        color: whitesmoke;
+                        text-align: center;
+                    }
+                </style>
+                <title>Connected!</title>
+            </head>
+            <body>
+                <h1>
+                    <span>
+                        ESP successfully connected to WiFi network %(ssid)s.
+                    </span>
+                </h1>
+            </body>
             </html>
         """ % dict(ssid=ssid)
         send_response(client, response)
@@ -298,18 +309,42 @@ def handle_configure(client, request):
         return True
     else:
         response = """\
-            <html>
-                <center>
-                    <h1 style="color: #5e9ca0; text-align: center;">
-                        <span style="color: #ff0000;">
-                            ESP could not connect to WiFi network %(ssid)s.
-                        </span>
-                    </h1>
-                    <br><br>
-                    <form>
-                        <input type="button" value="Go back!" onclick="history.back()"></input>
-                    </form>
-                </center>
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <style>
+                    body{
+                        background-color: #1f1f1f;
+                        align-items: center;
+                        margin: auto;
+                        display: block;
+                        text-align: center;
+                    }
+                    h1{
+                        font-size: 50px;
+                        background-color: tomato;
+                        color: whitesmoke;
+                        text-align: center;
+                        margin-bottom: 100px;
+                    }
+                    input{
+                        width: 500px;
+                        height: 100px;
+                        font-size: 30px;
+                    }
+                </style>
+                <title>Connected!</title>
+            </head>
+            <body>
+                <h1>
+                    <span>
+                        ESP could not connect to WiFi network <br>%(ssid)s
+                    </span>
+                </h1>
+                <form>
+                    <input type="button" value="Go Back!" onclick="history.back()">
+                </form>
+            </body>
             </html>
         """ % dict(ssid=ssid)
         send_response(client, response)

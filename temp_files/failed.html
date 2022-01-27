@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body{
+            background-color: #1f1f1f;
+            align-items: center;
+            margin: auto;
+            display: block;
+            text-align: center;
+        }
+        h1{
+            font-size: 50px;
+            background-color: tomato;
+            color: whitesmoke;
+            text-align: center;
+            margin-bottom: 100px;
+        }
+        input{
+            width: 500px;
+            height: 100px;
+            font-size: 30px;
+        }
+    </style>
+    <title>Connected!</title>
+</head>
+<body>
+    <h1>
+        <span>
+            ESP could not connect to WiFi network <br>%(ssid)s
+        </span>
+    </h1>
+    <form>
+        <input type="button" value="Go Back!" onclick="history.back()">
+    </form>
+</body>
+</html>
