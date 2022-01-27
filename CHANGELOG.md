@@ -1,6 +1,6 @@
 # WifiManager changelog
 
-## V1.1.0 (DATE)
+## V1.1.0 (Jan. 27, 2022)
 - updated webpage style
   - main page
   - error page
