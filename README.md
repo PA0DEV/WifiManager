@@ -11,17 +11,19 @@
 <b>Main features :</b>
 
 - Web based connection manager
-- save known Networks and passwords in "profiles.json" (JSON-Format)
+- save known Networks, IP settings and passwords in "profiles.json" (JSON-Format)
 - Easy to include in your projects
+- Adapts to many cases
 
 <b>Planned features:</b>
   
 - [X] Update website design
-- [ ] Network IP setup
+- [X] Network IP setup
     - [X] add IP config into HTML webpage
-    - [ ] merge new form data into ESP programm
-    - [ ] DHCP 
-    - [ ] Static IP configuration
+    - [X] merge new form data into ESP programm
+    - [X] DHCP 
+    - [X] Static IP configuration
+    - [X] save ip setup into profiles.json
 
 - [ ] Captive portal for AP
 - [ ] More to come
@@ -58,6 +60,38 @@
     The connection sould be checked in regular intervals to prevent unwanted behaviour!  
 
 5. step: run user code
+
+<b>How to setup wifi configuration:</b>
+
+1. Connect to the AP opened by the ESP
+    
+    <img src="docs/WiFi_QR.png" alt="WiFi QR code" width=200px>
+    
+    - default SSID: `PA0DEV-ESP`
+    - default pass: `12345678`
+2. Open the page `192.168.4.1`
+3. With dynamic IP-settings:
+
+    ![DHCP active](docs/Wifi_setup_dhcp.png)
+
+    - Leave the DHCP on "ON"
+    - Select your network and enter the password
+    - hit the "Submit" button
+4. With static IP-settings:
+
+    ![DHCP active](docs/Wifi_setup_static.png)
+
+    - Select DHCP to be "Off"
+    - Enter the IP-configuration you want to use
+    - Select your network and enter the password
+    - hit the "Submit" button
+5. If you entered everything correctly you will get a message "ESP successfully connected to WiFi network [ YOUR_SSID ]."
+
+    <img src="docs/wifi_connected.png" alt="ESP-Connected" width=500>
+   
+   If not, you will get "ESP could not connect to WiFi network [ YOUR_SSID ]
+
+   <img src="docs/wifi_failed.png" alt="ESP-Failed" width=500>
 
 
 

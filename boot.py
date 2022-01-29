@@ -11,4 +11,5 @@ else:
 
 # Main Code starts here, wlan is a working network.WLAN(STA_IF) instance.
 
-
+while True:
+    pass

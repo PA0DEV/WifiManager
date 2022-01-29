@@ -69,8 +69,8 @@
                         <tr>
                             <td>DHCP</td>
                             <td>
-                                <input id="dhcpOff" type="radio" name="dhcp" value="Off" checked onchange="showHide()"> Off
-                                <input id="dhcpOn" type="radio" name="dhcp" value="On" onchange="showHide()"> On
+                                <input id="dhcpOn" type="radio" name="dhcp" value="On" checked onchange="showHide()"> On
+                                <input id="dhcpOff" type="radio" name="dhcp" value="Off" onchange="showHide()"> Off
                             </td>
                         </tr>
                         <tr id="clientIP">
@@ -92,13 +92,13 @@
 <!-- iterate for all items -->
                         <tr>
                             <td colspan="2">
-                                <input type="radio" name="ssid" value="wIFI Test" />Wifi Test
+                                <input type="radio" name="ssid" value="wIFI SSID" />Wifi SSID
                             </td>
                         </tr>
                         <!--  -->
                         <tr>
                             <td colspan="2">
-                                <input type="radio" name="ssid" value="{1}" />{1}
+                                <input type="radio" name="ssid" value="{1}" />Another Wifi
                             </td>
                         </tr>
                         <!--  -->
@@ -126,4 +126,4 @@
 <!-- Sends Form data: 
     dhcp=Off&clientIP=&subnet=&gateway=&dns=&ssid=&password=
 -->
-"ssid=([^&]*)&password=(.*)&dhcp=(on|off)&clientIP=((?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$)&subnet=()"
+<!-- "ssid=([^&]*)&password=(.*)&dhcp=(on|off)&clientIP=((?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$)&subnet=()" -->

@@ -52,10 +52,12 @@ def getConnection():
     try:
         # ESP might take some time to connect to wifi
         time.sleep(3)
+        wifiSta.active(True)
         if wifiSta.isconnected():
             return wifiSta
 
         # look for known profiles
+        
         profiles = getProfiles()
 
         # scan for available networks
@@ -72,13 +74,13 @@ def getConnection():
             if encrypted:
                 for i in range(len(profiles)):
                     if ssid in profiles[i]["ssid"]:
-                        connected = connectWifi(ssid, profiles[i]["pass"])
+                        connected = connectWifi(ssid, profiles[i]["pass"], profiles[i]["dhcp"], profiles[i]["clientIP"], profiles[i]["subnet"], profiles[i]["gateway"],  profiles[i]["dns"])
                     else:
                         pass
             else:
                 for i in range(len(profiles)):
                     if ssid in profiles[i]["ssid"]:
-                        connected = connectWifi(ssid, None)
+                        connected = connectWifi(ssid, None, profiles[i]["dhcp"], profiles[i]["clientIP"], profiles[i]["subnet"], profiles[i]["gateway"],  profiles[i]["dns"])
                     else:
                         pass
             if connected:
@@ -89,17 +91,22 @@ def getConnection():
         print("[WifiMgr] exception", str(e))    
 
     # if no known network was found, open Config WebServer
+    print(connected)
     if not connected: 
         connected = startServer()
 
     # Return working wifi_STA
-    return wifiSta if connected else None
+    if connected:
+        wifiAp.active(False)
+        return wifiSta
+    else:
+        return None
 
 
 
 def getProfiles(file="profiles.json"):
     '''
-        returns a list of dicts of all known profiles [{"ssid": "SSID", "pass": "PASSWORD"}, ... ]
+        returns a list of dicts of all known profiles [{"ssid": "SSID", "pass": "PASSWORD", "dhcp": true | false, }, ... ]
     '''
     # Try opening the prifiles file
     try:
@@ -132,7 +139,7 @@ def addProfile(profile):
 def connectWifi(ssid, password, dhcp=True, clientIP="", subnet="", gateway="", dns="8.8.8.8"):
     wifiSta.active(False)
     if wifiSta.isconnected():
-        return None
+        return True
 
     wifiSta.active(True)
 
@@ -152,7 +159,7 @@ def connectWifi(ssid, password, dhcp=True, clientIP="", subnet="", gateway="", d
     if connected:
         print("\n[WifiMgr] Connected to wifi %s" %ssid)
         print("[WifiMgr] Device IP:  %s" %(wifiSta.ifconfig()[0]))
-        wifiAp.active(False)
+        # wifiAp.active(False)
     else:
         print("\n[WifiMgr] Could not connect to wifi %s" %ssid)
     return connected
@@ -190,12 +197,11 @@ def handle_root(client):
                     color: whitesmoke; 
                 }
                 h1{
-                    color: #5e9ca0; 
                     text-align: center; 
-                font-size: 70px;
+                    font-size: 70px;
                 }
                 span{
-                    color: whitesmoke;
+                    color: orangered;
                 }
                 table, th, td{
                     background-color: whitesmoke;
@@ -220,8 +226,30 @@ def handle_root(client):
 
                 }
             </style>
+            <script>
+                function showHide(){
+                    var x = document.getElementById("clientIP");
+                    var y = document.getElementById("subnet");
+                    var z = document.getElementById("gateway");
+                    var w = document.getElementById("dns");
+
+                    var radio = document.getElementsByName("dhcp");
+
+                    if (radio[0].checked){
+                        w.style.display = "none";
+                        x.style.display = "none";
+                        y.style.display = "none";
+                        z.style.display = "none";
+                    } else if (radio[1].checked) {
+                        w.style.display = "table-row";
+                        x.style.display = "table-row";
+                        y.style.display = "table-row";
+                        z.style.display = "table-row";
+                    }
+                }
+            </script>
             <title>ESP-WiFi setup</title>
-            <body>
+            <body onload="showHide()">
                         <h1>
                         <span >
                             Wi-Fi Client Setup
@@ -230,6 +258,29 @@ def handle_root(client):
                     <form action="configure" method="post">
                         <table>
                             <tbody>
+                                <tr>
+                                    <td>DHCP</td>
+                                    <td>
+                                        <input id="dhcpOff" type="radio" name="dhcp" value="On" checked onchange="showHide()"> On
+                                        <input id="dhcpOn" type="radio" name="dhcp" value="Off" onchange="showHide()"> Off
+                                    </td>
+                                </tr>
+                                <tr id="clientIP">
+                                    <td style="font-size: 40px; border-right: none;">Device IP:</td>
+                                    <td style="width: 300px;"><input pattern="(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$" name="clientIP"  type="text" placeholder="192.168.178.100" style="height: 60px; font-size: 50px;"/></td>
+                                </tr>
+                                <tr id="subnet">
+                                    <td style="font-size: 40px; border-right: none;">Subnetmask:</td>
+                                    <td style="width: 300px;"><input pattern="(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$" name="subnet" type="text" placeholder="255.255.255.0" style="height: 60px; font-size: 50px;"/></td>
+                                </tr>
+                                <tr id="gateway">
+                                    <td style="font-size: 40px; border-right: none;">Gateway:</td>
+                                    <td style="width: 300px;"><input pattern="(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$" name="gateway" type="text" placeholder="192.168.178.1" style="height: 60px; font-size: 50px;"/></td>
+                                </tr>
+                                <tr id="dns">
+                                    <td style="font-size: 40px; border-right: none;">DNS-server:</td>
+                                    <td style="width: 300px;"><input pattern="(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$" name="dns" type="text" placeholder="8.8.8.8" style="height: 60px; font-size: 50px;"/></td>
+                                </tr>
     """)
     while len(ssids):
         ssid = ssids.pop(0)
@@ -247,15 +298,16 @@ def handle_root(client):
                                 </td>
                             </tr>
                             <tr>
-                                <td style="font-size: 40px; border-right: none;">Password:</td>
-                                <td style="border-left: none; width: 300px;"><input name="password" type="password" style="height: 60px; font-size: 50px;"/></td>
+                                <td style="font-size: 40px; border-right: none; width: 300px;">Password:</td>
+                                <td style="width: 300px;"><input name="password" type="password" style="height: 60px; font-size: 50px;"/></td>
                             </tr>
+                            
                         </tbody>
                     </table>
                     <p style="text-align: center;">
                         <input type="submit" value="Submit" style="height: 60px; width: 200px; font-size: 50px; background-color: whitesmoke; " />
                     </p>
-        
+                </form>
         </body>
     </html>
     """)
@@ -299,11 +351,11 @@ def handle_configure(client, request):
         send_response(client, "SSID must be provided :(", status_code=400)
         return False
 
-    if dhcp and (len(clientIP) == 0 or len(subnet) == 0 or len(gateway) == 0 or len(dns) == 0):
+    if not dhcp and (len(clientIP) == 0 or len(subnet) == 0 or len(gateway) == 0 or len(dns) == 0):
         send_response(client, "Bad IP configuration :(", status_code=400)
         return False
 
-    if connectWifi(ssid, password):
+    if connectWifi(ssid, password, dhcp, clientIP, subnet, gateway, dns):
         response = """\
             <!DOCTYPE html>
             <html lang="en">
@@ -329,11 +381,11 @@ def handle_configure(client, request):
             </html>
         """ % dict(ssid=ssid)
         send_response(client, response)
-        profile = {"ssid": ssid, "pass": password}
+        profile = {"ssid": ssid, "pass": password, "dhcp": dhcp, "clientIP": clientIP, "subnet": subnet, "gateway": gateway, "dns": dns}
         addProfile(profile)
 
         time.sleep(5)
-
+        wifiAp.active(False)
         return True
     else:
         response = """\
@@ -361,7 +413,7 @@ def handle_configure(client, request):
                         font-size: 30px;
                     }
                 </style>
-                <title>Connected!</title>
+                <title>Error!</title>
             </head>
             <body>
                 <h1>
