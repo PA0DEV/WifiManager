@@ -1,7 +1,7 @@
 # created:  25.1.2022
 # by PA0DEV
 #
-# version: 1.1.0
+# version: 1.2.1
 # designed and tested on ESP32 TTGO
 
 """ 
