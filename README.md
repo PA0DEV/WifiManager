@@ -72,14 +72,14 @@
 2. Open the page `192.168.4.1`
 3. With dynamic IP-settings:
 
-    ![DHCP active](docs/Wifi_setup_dhcp.png)
+    ![DHCP active](docs/Wifi_setup_dhcp.PNG)
 
     - Leave the DHCP on "ON"
     - Select your network and enter the password
     - hit the "Submit" button
 4. With static IP-settings:
 
-    ![DHCP active](docs/Wifi_setup_static.png)
+    ![DHCP active](docs/Wifi_setup_static.PNG)
 
     - Select DHCP to be "Off"
     - Enter the IP-configuration you want to use
@@ -87,11 +87,11 @@
     - hit the "Submit" button
 5. If you entered everything correctly you will get a message "ESP successfully connected to WiFi network [ YOUR_SSID ]."
 
-    <img src="docs/wifi_connected.png" alt="ESP-Connected" width=500>
+    <img src="docs/wifi_connected.PNG" alt="ESP-Connected" width=500>
    
    If not, you will get "ESP could not connect to WiFi network [ YOUR_SSID ]
 
-   <img src="docs/wifi_failed.png" alt="ESP-Failed" width=500>
+   <img src="docs/wifi_failed.PNG" alt="ESP-Failed" width=500>
 
 
 
