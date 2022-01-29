@@ -1,5 +1,10 @@
 # WifiManager changelog
 
+## V1.2.1 (Jan. 29, 2022) (wip)
+- implemented ip configuration into webpage
+- implemented ip coinfig data into methods
+- added ip config to saved networks
+
 ## V1.1.0 (Jan. 27, 2022)
 - updated webpage style
   - main page

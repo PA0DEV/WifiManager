@@ -18,8 +18,12 @@
   
 - [X] Update website design
 - [ ] Network IP setup
-    - DHCP 
-    - Static IP configuration
+    - [X] add IP config into HTML webpage
+    - [ ] merge new form data into ESP programm
+    - [ ] DHCP 
+    - [ ] Static IP configuration
+
+- [ ] Captive portal for AP
 - [ ] More to come
 
 <b>Usage :</b>

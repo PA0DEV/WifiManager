@@ -1,8 +1,22 @@
 {
     "profiles": [
         {
-            "ssid": "TestSSID",
-            "pass": "TestPass"
+            "ssid": "Dynamic IP example",
+            "pass": "TestPass",
+            "dhcp": true,
+            "clientIP": "",
+            "subnet": "",
+            "gateway": "",
+            "dns": ""
+        },
+        {
+            "ssid": "Static IP example",
+            "pass": "TestPass",
+            "dhcp": false,
+            "clientIP": "192.168.178.110",
+            "subnet": "255.255.255.0",
+            "gateway": "192.168.178.1",
+            "dns": "8.8.8.8"
         }
     ]
 }

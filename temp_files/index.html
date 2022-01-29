@@ -5,12 +5,11 @@
             color: whitesmoke; 
         }
         h1{
-            color: #5e9ca0; 
             text-align: center; 
-           font-size: 70px;
+            font-size: 70px;
         }
         span{
-            color: whitesmoke;
+            color: orangered;
         }
         table, th, td{
             background-color: whitesmoke;
@@ -35,8 +34,30 @@
 
         }
     </style>
+    <script>
+        function showHide(){
+            var x = document.getElementById("clientIP");
+            var y = document.getElementById("subnet");
+            var z = document.getElementById("gateway");
+            var w = document.getElementById("dns");
+
+            var radio = document.getElementsByName("dhcp");
+
+            if (radio[0].checked){
+                w.style.display = "none";
+                x.style.display = "none";
+                y.style.display = "none";
+                z.style.display = "none";
+            } else if (radio[1].checked) {
+                w.style.display = "table-row";
+                x.style.display = "table-row";
+                y.style.display = "table-row";
+                z.style.display = "table-row";
+            }
+        }
+    </script>
     <title>ESP-WiFi setup</title>
-    <body>
+    <body onload="showHide()">
                 <h1>
                 <span >
                     Wi-Fi Client Setup
@@ -45,10 +66,33 @@
             <form action="configure" method="post">
                 <table>
                     <tbody>
+                        <tr>
+                            <td>DHCP</td>
+                            <td>
+                                <input id="dhcpOff" type="radio" name="dhcp" value="Off" checked onchange="showHide()"> Off
+                                <input id="dhcpOn" type="radio" name="dhcp" value="On" onchange="showHide()"> On
+                            </td>
+                        </tr>
+                        <tr id="clientIP">
+                            <td style="font-size: 40px; border-right: none;">Device IP:</td>
+                            <td style="width: 300px;"><input pattern="(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$" name="clientIP"  type="text" placeholder="192.168.178.100" style="height: 60px; font-size: 50px;"/></td>
+                        </tr>
+                        <tr id="subnet">
+                            <td style="font-size: 40px; border-right: none;">Subnetmask:</td>
+                            <td style="width: 300px;"><input pattern="(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$" name="subnet" type="text" placeholder="255.255.255.0" style="height: 60px; font-size: 50px;"/></td>
+                        </tr>
+                        <tr id="gateway">
+                            <td style="font-size: 40px; border-right: none;">Gateway:</td>
+                            <td style="width: 300px;"><input pattern="(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$" name="gateway" type="text" placeholder="192.168.178.1" style="height: 60px; font-size: 50px;"/></td>
+                        </tr>
+                        <tr id="dns">
+                            <td style="font-size: 40px; border-right: none;">DNS-server:</td>
+                            <td style="width: 300px;"><input pattern="(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$" name="dns" type="text" placeholder="8.8.8.8" style="height: 60px; font-size: 50px;"/></td>
+                        </tr>
 <!-- iterate for all items -->
                         <tr>
                             <td colspan="2">
-                                <input type="radio" name="ssid" value="{0}" />{0}
+                                <input type="radio" name="ssid" value="wIFI Test" />Wifi Test
                             </td>
                         </tr>
                         <!--  -->
@@ -65,14 +109,21 @@
                             </td>
                         </tr>
                         <tr>
-                            <td style="font-size: 40px; border-right: none;">Password:</td>
-                            <td style="border-left: none; width: 300px;"><input name="password" type="password" style="height: 60px; font-size: 50px;"/></td>
+                            <td style="font-size: 40px; border-right: none; width: 300px;">Password:</td>
+                            <td style="width: 300px;"><input name="password" type="password" style="height: 60px; font-size: 50px;"/></td>
                         </tr>
+                        
                     </tbody>
                 </table>
                 <p style="text-align: center;">
                     <input type="submit" value="Submit" style="height: 60px; width: 200px; font-size: 50px; background-color: whitesmoke; " />
                 </p>
-    
+            </form>
     </body>
 </html>
+
+
+<!-- Sends Form data: 
+    dhcp=Off&clientIP=&subnet=&gateway=&dns=&ssid=&password=
+-->
+"ssid=([^&]*)&password=(.*)&dhcp=(on|off)&clientIP=((?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$)&subnet=()"

@@ -129,11 +129,18 @@ def addProfile(profile):
         f.write(json.dumps(p))
 
 
-def connectWifi(ssid, password):
-    wifiSta.active(True)
+def connectWifi(ssid, password, dhcp=True, clientIP="", subnet="", gateway="", dns="8.8.8.8"):
+    wifiSta.active(False)
     if wifiSta.isconnected():
         return None
+
+    wifiSta.active(True)
+
+    if not dhcp:
+        wifiSta.ifconfig((clientIP, subnet, gateway, dns))
+
     print("[WifiMgr] Trying to connect to %s." %ssid)
+
     wifiSta.connect(ssid, password)
     print("[WifiMgr] ", end="")
     for retry in range(100):
@@ -255,7 +262,8 @@ def handle_root(client):
     client.close()
 
 def handle_configure(client, request):
-    match = ure.search("ssid=([^&]*)&password=(.*)", request)
+    regExp = "dhcp=(On|Off)&clientIP=(.*)&subnet=(.*)&gateway=(.*)&dns=(.*)&ssid=([^&]*)&password=(.*)"
+    match = ure.search(regExp, request)
     print (
         request
     )
@@ -265,14 +273,34 @@ def handle_configure(client, request):
         return False
     # version 1.9 compatibility
     try:
-        ssid = match.group(1).decode("utf-8").replace("%3F", "?").replace("%21", "!").replace("+", " ")
-        password = match.group(2).decode("utf-8").replace("%3F", "?").replace("%21", "!")
+        if match.group(1).decode("utf-8") == "On":
+            dhcp = True
+        else:
+            dhcp = False
+        clientIP = match.group(2).decode("utf-8")
+        subnet = match.group(3).decode("utf-8")
+        gateway = match.group(4).decode("utf-8")
+        dns = match.group(5).decode("utf-8")
+        ssid = match.group(6).decode("utf-8").replace("%3F", "?").replace("%21", "!").replace("+", " ")
+        password = match.group(7).decode("utf-8").replace("%3F", "?").replace("%21", "!")
     except Exception:
-        ssid = match.group(1).replace("%3F", "?").replace("%21", "!").replace("%2B", " ")
-        password = match.group(2).replace("%3F", "?").replace("%21", "!")
+        if match.group(1).decode("utf-8") == "On":
+            dhcp = True
+        else:
+            dhcp = False
+        clientIP = match.group(2)
+        subnet = match.group(3)
+        gateway = match.group(4)
+        dns = match.group(5)
+        ssid = match.group(6).replace("%3F", "?").replace("%21", "!").replace("+", " ")
+        password = match.group(7).replace("%3F", "?").replace("%21", "!")
 
     if len(ssid) == 0:
-        send_response(client, "SSID must be provided", status_code=400)
+        send_response(client, "SSID must be provided :(", status_code=400)
+        return False
+
+    if dhcp and (len(clientIP) == 0 or len(subnet) == 0 or len(gateway) == 0 or len(dns) == 0):
+        send_response(client, "Bad IP configuration :(", status_code=400)
         return False
 
     if connectWifi(ssid, password):
