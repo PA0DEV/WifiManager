@@ -94,5 +94,5 @@
    <img src="docs/wifi_failed.PNG" alt="ESP-Failed" width=500>
 
 
-
+snippets of the code are inpired by https://github.com/tayfunulu/WiFiManager
 
