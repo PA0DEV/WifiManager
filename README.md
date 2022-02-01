@@ -26,6 +26,7 @@
     - [X] save ip setup into profiles.json
 
 - [ ] Captive portal for AP
+- [ ] Manage (delete) saved Networks
 - [ ] More to come
 
 <b>Usage :</b>
