@@ -1,0 +1,108 @@
+<html>
+    <style>
+        body{
+            background-color: #1f1f1f; 
+            color: whitesmoke; 
+        }
+        h1{
+            text-align: center; 
+            font-size: 70px;
+        }
+        span{
+            color: orangered;
+        }
+        table, th, td{
+            background-color: whitesmoke;
+            border: 1px solid black;
+            border-collapse: collapse;
+            color: black;
+            font-size: 40px;
+            line-height: 60px;
+        }
+        table{
+            margin-left: auto;
+            margin-right: auto;
+        }
+        tr{
+            height: 60px;
+        }
+        input[type="radio"]{
+            width: 50px; 
+            height: 30px;
+            line-height: 60px;
+            text-align: left;
+
+        }
+        button{
+            background-color: #b1b1b1;
+            border: 3px solid #1f1f1f;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 25px;
+            width: 100%;
+            transition-duration: 0.4s;
+        }
+        button:hover{
+            cursor: pointer;
+            background-color: tomato;
+            color: whitesmoke;
+        }
+        a{
+            text-decoration: none;
+            color: whitesmoke;
+            padding: 15px 32px;
+            font-size: 25px;
+            margin: 10px;
+            position: absolute;
+            top: 60px;
+            left: 0px;
+        }
+    </style>
+    <script>
+        function delProfile(SSID_Name){
+        var http = new XMLHttpRequest();
+        var url = 'delProfile';
+        var params = 'profile='+SSID_Name;
+        http.open('POST', url, true);
+
+        //Send the proper header information along with the request
+        http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+        http.onreadystatechange = function() {//Call a function when the state changes.
+            if(http.readyState == 4 && http.status == 200) {
+                alert(http.responseText);
+            }
+        }
+        http.send(params);
+        }
+    </script>
+    <title>ESP-WiFi known Profiles</title>
+    <body>
+            <h1>
+                <span >
+                    WiFi Manager - known Profiles
+                </span>
+            </h1>
+        <a href="index.html">&laquo; Back</a>
+        <table>
+            <tr>
+                <th style="width: 100px;">#</th>
+                <th style="width: 300px;">SSID</th>
+                <th style="width: 200px;"></th>
+            </tr>
+
+            <!--Iterate List -->
+            <tr>
+                <td>{ID}</td>
+                <td>{SSID_Name}</td>
+                <td>
+                    <button type="submit" onclick="delProfile({SSID_Name})">Delete</button>
+                </td>
+            </tr>
+            <!--  -->
+
+        </table>
+        
+    </body>
+</html>
