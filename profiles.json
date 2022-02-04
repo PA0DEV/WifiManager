@@ -1,0 +1,22 @@
+{
+    "profiles": [
+        {
+            "ssid": "Example",
+            "pass": "password",
+            "dhcp": true,
+            "gateway": "",
+            "subnet": "",
+            "clientIP": "",
+            "dns": ""
+        },
+        {
+            "ssid": "ExampleStatic",
+            "pass": "password",
+            "dhcp": false,
+            "gateway": "192.168.178.1",
+            "subnet": "255.255.255.0",
+            "clientIP": "192.168.178.100",
+            "dns": "8.8.8.8"
+        }
+    ]
+}
