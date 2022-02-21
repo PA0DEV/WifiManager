@@ -53,6 +53,45 @@
 
 <b>Logic: </b>
 
+<b>Diagramm:</b>
+```mermaid
+graph TD;
+    subgraph main.py;
+        A[[main.py]] --> B{function<br>check_connection};
+        B-- CONNECTED -->C[Your Code];
+        B -- False --> D[Something is Wrong];
+        B--Regular Intervall-->B
+    end;
+```
+```mermaid
+graph TD;
+    subgraph check_connection;
+        E[[fuction <br>check_connection]] --> F[check connection];
+        F--Connected--> G>Return TRUE];
+        F--not Connected--> H(open known profiles);
+        H-->I(Scan WiFis);
+        I-- Found known WiFi --> J(Try to connect);
+        I-- no known WiFi found --> K(Start webserver);
+        J--Connected--> L>Return True];
+        J--not Connected-->K;
+        K--Connected-->L;
+    end;
+```
+```mermaid
+graph TD;
+    subgraph webserver;
+        N[[Webserver]]-->M(Open Access Point);
+        M-->O(Webserver Listen<br>192.168.4.1:80)
+        O-->P[User connect to webpage<br>and submitt data]
+        P-->Q(Try to connect<br>to new network)
+        Q--cannot connect-->O
+        Q--Connected-->R(Save network Infos<br>in JSON)
+        R-->S(Close Access Point)
+        S-->T>Return TRUE]
+    end;
+```
+
+
 1. step: check if "profiles.json" contains any reachable networks
 2. step: open a web server to configure a new wifi
 3. step: save the ssid / password from the configuration to "profiles.json"
